@@ -1,10 +1,11 @@
-# Uncomment the next line to define a global platform for your project
-
+use_frameworks! :linkage => :static
 platform :ios, '13.4'  # or whatever minimum iOS version you're targeting
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
+
 target 'auratalk_app' do
+  pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
   config = use_native_modules!
   use_react_native!(
     :path => config[:reactNativePath],
