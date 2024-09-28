@@ -1,80 +1,108 @@
-import React, {useEffect} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import Animated, {
-    useSharedValue,
-    useAnimatedStyle,
-    withRepeat,
-    withTiming,
-    Easing
+import Animated, { 
+  useSharedValue, 
+  useAnimatedStyle, 
+  withRepeat, 
+  withTiming, 
+  Easing 
 } from 'react-native-reanimated';
+import MicrophoneIcon from './MicrophoneIcon';
 
-const MainScreen: React.FC = () => {
-    const scale = useSharedValue(1);
-    useEffect(() => {
-        scale.value = withRepeat(withTiming(1.2, {duration: 1000, easing: Easing.inOut(Easing.ease)}), -1, true)
-    }, []);
-    
-    const animatedStyles = useAnimatedStyle(() => {
-        return {
-            transform: [{scale: scale.value}]
-        }
-    });
-    const handlePress = () => {
-      // TODO: Implement voice recognition logic
-      console.log('Microphone pressed');
-    };
-    return (
-        <View style={styles.container}>
-            <Text>How can I help you with your finances today?</Text>
-            <Animated.View style={[styles.micButtonContainer, animatedStyles]}>
-                <TouchableOpacity style={styles.micButton} onPress={handlePress}>
-                    <Icon name="mic" size={40} color="#fff" />
-                </TouchableOpacity>
-            </Animated.View>
+const MainScreen = () => {
+  const handlePress = () => {
+    console.log('Microphone pressed');
+  };
 
-            <Text style={styles.hint}>Tap the microphone to start</Text>
+  return (
+    <LinearGradient colors={['#001f3f', '#0074D9']} style={styles.container}>
+      <Text style={styles.title}>Financial Assistant</Text>
+      
+      <View style={styles.iconContainer}>
+        <MicrophoneIcon color="#FFFFFF" size={100} />
+        <View style={styles.dotsContainer}>
+          <View style={[styles.dot, { backgroundColor: '#FF4136', top: -10, left: -20 }]} />
+          <View style={[styles.dot, { backgroundColor: '#FFDC00', top: -30, right: -20 }]} />
+          <View style={[styles.dot, { backgroundColor: '#7FDBFF', bottom: -10, left: -20 }]} />
+          <View style={[styles.dot, { backgroundColor: '#01FF70', bottom: -30, right: -20 }]} />
         </View>
-    );
+      </View>
+      
+      <Text style={styles.hint}>Tap to speak</Text>
+
+      <TouchableOpacity style={styles.button} onPress={handlePress}>
+        <Text style={styles.buttonText}>Speak Now</Text>
+      </TouchableOpacity>
+    </LinearGradient>
+  );
 };
 
-
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#f5f5f5',
-      padding: 20,
-    },
-    greeting: {
-      fontSize: 24,
-      fontWeight: 'bold',
-      textAlign: 'center',
-      marginBottom: 50,
-      color: '#333',
-    },
-    micButtonContainer: {
-      marginBottom: 30,
-    },
-    micButton: {
-      width: 100,
-      height: 100,
-      borderRadius: 50,
-      backgroundColor: '#007AFF',
-      justifyContent: 'center',
-      alignItems: 'center',
-      elevation: 5,
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.25,
-      shadowRadius: 3.84,
-    },
-    hint: {
-      fontSize: 16,
-      color: '#666',
-    },
-  });
-  
-  export default MainScreen;
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  title: {
+    fontSize: 24,
+    color: '#FFFFFF',
+    marginBottom: 40,
+    fontWeight: 'bold',
+  },
+  iconContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 40,
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    backgroundColor: '#FF4136',
+    position: 'relative',
+    elevation: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+  },
+  dotsContainer: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  dot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    position: 'absolute',
+  },
+  hint: {
+    fontSize: 18,
+    color: '#FFFFFF',
+    marginBottom: 20,
+  },
+  button: {
+    backgroundColor: '#FF851B',
+    paddingVertical: 15,
+    paddingHorizontal: 40,
+    borderRadius: 25,
+    elevation: 5,
+    shadowColor:'#000',
+    shadowOffset:{width :0,height :4},
+   shadowOpacity :0.25,
+   shadowRadius :4
+},
+buttonText:{
+   color:'#FFFFFF',
+   fontSize :18,
+   fontWeight :'bold'
+}
+});
+
+export default MainScreen;
+
+export default MainScreen;
